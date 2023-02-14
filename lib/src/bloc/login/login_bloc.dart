@@ -11,8 +11,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   LoginBloc() : super(const LoginState()) {
 
     //add
-    on<LoginEventAdd>((event, emit) {
+    on<LoginEventAdd>((event, emit) async {
       // execute something
+      await Future.delayed(Duration(seconds: 3));
       emit(state.copyWith(count: state.count+1));
     });
 
@@ -23,6 +24,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
     //saveLogin
     on<LoginEventLogin>((event, emit){
+      emit(state.copyWith(isAuth: true));
       emit(state.copyWith(username: state.username));
     });
   }

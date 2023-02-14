@@ -1,7 +1,6 @@
 //state with no lib, so its cannot have an value
 
 import 'package:cmflutter0/src/bloc/login/login_bloc.dart';
-import 'package:cmflutter0/src/bloc/username/username_bloc.dart';
 import 'package:cmflutter0/src/login/login_page.dart';
 import 'package:cmflutter0/src/routes.dart';
 import 'package:flutter/material.dart';

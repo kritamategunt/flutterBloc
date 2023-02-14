@@ -1,5 +1,4 @@
 import 'package:cmflutter0/src/bloc/login/login_bloc.dart';
-import 'package:cmflutter0/src/bloc/username/username_bloc.dart';
 import 'package:cmflutter0/src/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -73,7 +72,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void _handleClickLogin() {
-    context.read<LoginBloc>().add(LoginEventLogin());
+
     print(
         "login: \nusername: ${_usernameController.text}\npassword: ${_passwordController.text}");
     Navigator.pushNamed(context, AppRoute.home);
@@ -82,7 +81,6 @@ class _LoginPageState extends State<LoginPage> {
   void _handleClickSignIn() {
     _usernameController.text = "";
 
-    print("Sign-in: ${context.read<UsernameBloc>().state.username.toString()}");
     Navigator.pushNamed(context, AppRoute.register);
   }
 
