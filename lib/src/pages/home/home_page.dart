@@ -10,28 +10,86 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-
 class _HomePageState extends State<HomePage> {
-
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     WebApiService().feed();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text("HomePage"),
       ),
-      body: Center(child: Column(
-        children: [
-          Text("Welcome"),
-          Text("debug: ${context.read<LoginBloc>().state.count}"),
-         // Text("username:  ${context.read<LoginBloc>().state.username}")
-        ],
-      ),),
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            children: [
+              Text("Welcome"),
+              Text("debug: ${context.read<LoginBloc>().state.count}"),
+              SizedBox(
+                height: 20,
+              ),
+              Container(
+                child: FutureBuilder(
+                    future: WebApiService().feed(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData == false) {
+                        return Text("Loading...");
+                      }
+
+                      final youtubes = snapshot.data;
+
+                      //Low Performance
+                      return Column(
+                        children: [
+                          ...youtubes!.map((e) => TextButton(
+                                onPressed: () => {print(e.title)},
+                                child: Card(
+                                    child: Column(
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.stretch,
+                                  children: [
+                                    Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Image.network(e.avatarImage),
+                                      ],
+                                    ),
+                                    Text(e.title.toString()),
+                                    Text(e.subtitle.toString())
+                                  ],
+                                )),
+                              ))
+                        ],
+                      );
+
+                      //Better way
+                      // return ListView.builder(
+                      //   itemCount: youtubes!.length,
+                      //   itemBuilder: (context, index) {
+                      //     return Card(
+                      //       margin: EdgeInsets.all(10),
+                      //       child: Column(
+                      //         crossAxisAlignment: CrossAxisAlignment.start,
+                      //         children: [
+                      //           Text(youtubes![index].title)
+                      //         ],
+                      //       ),
+                      //     );
+                      //   },
+                      // );
+                    }),
+              )
+              // Text("username:  ${context.read<LoginBloc>().state.username}")
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
