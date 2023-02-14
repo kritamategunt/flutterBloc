@@ -1,5 +1,7 @@
 part of 'login_bloc.dart';
 
+enum AuthStatus { init, success, failed}
+
 class LoginState extends Equatable {
   final int count;
   final String username;

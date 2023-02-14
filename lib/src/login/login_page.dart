@@ -26,53 +26,55 @@ class _LoginPageState extends State<LoginPage> {
       appBar: AppBar(
         title: const Text("Login page"),
       ),
-      body: SizedBox(
-        width: double.infinity,
-        child: Padding(
-          padding: const EdgeInsets.all(32.0),
-          child: Card(
-            shadowColor: Colors.black,
-            child: Container(
-              height: 600,
-              padding: EdgeInsets.all(10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  //... from remove array []
-                  ..._buildTextFields(),
-                  SizedBox(height: 32,),
-                  BlocBuilder<LoginBloc, LoginState>(
-                    builder: (context, state) {
-                      return Text(
-                        "LoginResult: ${state.isAuth ? "Success" : "Error"}",
-                        style: TextStyle(color: state.isAuth ? Colors.green : Colors.red),);
-                    },
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  ..._buildButtons(),
-                  Row(
-                    children: [
-                      // Text("debug: ${context.read<LoginBloc>().state.count}"),
-                      BlocBuilder<LoginBloc, LoginState>(
-                        builder: (context, state) {
-                          return Text("Debug#1: ${state.count} ");
-                        },
-                      ),
-                      IconButton(
-                        onPressed: () =>
-                        {context.read<LoginBloc>().add(LoginEventAdd())},
-                        icon: Icon(Icons.add),
-                      ),
-                      IconButton(
-                        onPressed: () =>
-                            context.read<LoginBloc>().add(LoginEventRemove()),
-                        icon: Icon(Icons.remove),
-                      ),
-                    ],
-                  )
-                ],
+      body: SingleChildScrollView(
+        child: SizedBox(
+          width: double.infinity,
+          child: Padding(
+            padding: const EdgeInsets.all(32.0),
+            child: Card(
+              shadowColor: Colors.black,
+              child: Container(
+                height: 500,
+                padding: EdgeInsets.all(10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    //... from remove array []
+                    ..._buildTextFields(),
+                    SizedBox(height: 32,),
+                    BlocBuilder<LoginBloc, LoginState>(
+                      builder: (context, state) {
+                        return Text(
+                          "LoginResult: ${state.isAuth ? "Success" : "Error"}",
+                          style: TextStyle(color: state.isAuth ? Colors.green : Colors.red),);
+                      },
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    ..._buildButtons(),
+                    Row(
+                      children: [
+                        // Text("debug: ${context.read<LoginBloc>().state.count}"),
+                        BlocBuilder<LoginBloc, LoginState>(
+                          builder: (context, state) {
+                            return Text("Debug#1: ${state.count} ");
+                          },
+                        ),
+                        IconButton(
+                          onPressed: () =>
+                          {context.read<LoginBloc>().add(LoginEventAdd())},
+                          icon: Icon(Icons.add),
+                        ),
+                        IconButton(
+                          onPressed: () =>
+                              context.read<LoginBloc>().add(LoginEventRemove()),
+                          icon: Icon(Icons.remove),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
               ),
             ),
           ),
