@@ -3,6 +3,8 @@ import 'package:cmflutter0/src/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../models/user.dart';
+
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
 
@@ -31,13 +33,19 @@ class _LoginPageState extends State<LoginPage> {
           child: Card(
             shadowColor: Colors.black,
             child: Container(
-              height: 320,
+              height: 600,
               padding: EdgeInsets.all(10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   //... from remove array []
                   ..._buildTextFields(),
+                  SizedBox(height: 32,),
+                  BlocBuilder<LoginBloc, LoginState>(
+                    builder: (context, state) {
+                      return Text("LoginResult: ${state.isAuth}");
+                    },
+                  ),
                   SizedBox(
                     height: 30,
                   ),
@@ -52,7 +60,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       IconButton(
                         onPressed: () =>
-                            {context.read<LoginBloc>().add(LoginEventAdd())},
+                        {context.read<LoginBloc>().add(LoginEventAdd())},
                         icon: Icon(Icons.add),
                       ),
                       IconButton(
@@ -72,10 +80,13 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void _handleClickLogin() {
-
-    print(
-        "login: \nusername: ${_usernameController.text}\npassword: ${_passwordController.text}");
-    Navigator.pushNamed(context, AppRoute.home);
+    //
+    // print(
+    //     "login: \nusername: ${_usernameController.text}\npassword: ${_passwordController.text}");
+    // Navigator.pushNamed(context, AppRoute.home);
+    final user = User(
+        username: _usernameController.text, password: _passwordController.text);
+    context.read<LoginBloc>().add(LoginEventLogin(user));
   }
 
   void _handleClickSignIn() {

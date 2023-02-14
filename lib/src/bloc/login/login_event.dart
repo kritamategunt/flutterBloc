@@ -7,4 +7,10 @@ abstract class LoginEvent extends Equatable{
 
 class LoginEventAdd extends LoginEvent{}
 class LoginEventRemove extends LoginEvent{}
-class LoginEventLogin extends LoginEvent{}
+class LoginEventLogin extends LoginEvent{
+  final User payload;
+  LoginEventLogin(this.payload);
+}
+
+
+
