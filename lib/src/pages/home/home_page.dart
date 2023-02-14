@@ -1,5 +1,5 @@
 import 'package:cmflutter0/src/bloc/login/login_bloc.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:cmflutter0/src/services/webAPI_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -10,7 +10,15 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
+
 class _HomePageState extends State<HomePage> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    WebApiService().feed();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +29,7 @@ class _HomePageState extends State<HomePage> {
         children: [
           Text("Welcome"),
           Text("debug: ${context.read<LoginBloc>().state.count}"),
-          Text("username:  ${context.read<LoginBloc>().state.username}")
+         // Text("username:  ${context.read<LoginBloc>().state.username}")
         ],
       ),),
     );

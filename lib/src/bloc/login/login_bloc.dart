@@ -1,7 +1,10 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:cmflutter0/app.dart';
+import 'package:cmflutter0/src/routes.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/cupertino.dart';
 
 import '../../models/user.dart';
 
@@ -28,7 +31,11 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       if (event.payload.username == "admin" &&
           event.payload.password == "1234") {
         emit(state.copyWith(isAuth: true));
-
+        //change but its can't go back
+        if (navigatorState.currentContext != null) {
+          Navigator.pushReplacementNamed(
+              navigatorState.currentContext!, AppRoute.home);
+        }
       } else {
         emit(state.copyWith(isAuth: false));
       }
